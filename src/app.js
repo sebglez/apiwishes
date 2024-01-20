@@ -76,6 +76,17 @@ app.delete("/wish/:wishId", async (req, res) => {
   }
 });
 
+app.delete("/wishes", async (req, res) => {
+  try {
+    await Wish.deleteMany({});
+    const wishList = await Wish.find();
+    res.status(200).json(wishList);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error al eliminar todos los deseos");
+  }
+});
+
 app.listen(3001, () => {
   console.log("Servidor corriendo en el puerto 3001");
 });
